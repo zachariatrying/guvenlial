@@ -279,6 +279,43 @@ export default function App() {
                 </table>
               </div>
             </div>
+
+            <section className="brutal-box bg-white p-5 space-y-4">
+              <div className="flex flex-wrap items-center gap-2.5 border-b-2 border-[#111111] pb-3">
+                <span className="-rotate-2 border-2 border-[#111111] bg-[#FFE600] px-2.5 py-0.5 font-brutal-mono text-[11px] font-bold">
+                  REHBER
+                </span>
+                <h3 className="font-brutal-display text-base sm:text-lg font-extrabold">
+                  Bu Araç Ne İçin Var ve Nasıl Çalışır?
+                </h3>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div className="space-y-1.5">
+                  <div className="font-brutal-mono text-xs font-bold uppercase text-[#111111]">
+                    1. NE İÇİN KULLANILIR?
+                  </div>
+                  <p className="text-[#333333] leading-relaxed">
+                    Mağaza ve e-ticaret sitelerinde gördüğün <strong>&ldquo;Peşin fiyatına taksit&rdquo;</strong> veya{' '}
+                    <strong>&ldquo;Peşin öde %10 indirim al&rdquo;</strong> seçeneklerinden hangisinin cebinden gerçekte
+                    daha az para çıkardığını net TL cinsinden görmek için kullanılır.
+                  </p>
+                </div>
+                <div className="space-y-1.5">
+                  <div className="font-brutal-mono text-xs font-bold uppercase text-[#111111]">
+                    2. NASIL HESAPLAR / ÇALIŞIR?
+                  </div>
+                  <p className="text-[#333333] leading-relaxed">
+                    Peşin fiyatı cebinde tutup aylık mevduat / para piyasası fonunda değerlendirdiğini varsayar. Her ay
+                    kalan anapara üzerinden bileşik getiri ekler, taksit tutarını düşer ve taksitlerin bugünkü{' '}
+                    <strong>reel maliyetini</strong> peşin fiyatla kıyaslar.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-[#F2EFE9] border-2 border-[#111111] p-3 text-xs font-brutal-mono">
+                💡 İPUCU: Kredi kartı hesap kesim tarihinden 1 gün sonra taksitli alışveriş yapmak ilk ödemeyi ~40 gün
+                öteler ve nakit avantajını daha da büyütür.
+              </div>
+            </section>
           </div>
         )}
 
@@ -345,6 +382,42 @@ export default function App() {
                 </div>
               ))}
             </div>
+
+            <section className="brutal-box bg-white p-5 space-y-4">
+              <div className="flex flex-wrap items-center gap-2.5 border-b-2 border-[#111111] pb-3">
+                <span className="-rotate-2 border-2 border-[#111111] bg-[#FFE600] px-2.5 py-0.5 font-brutal-mono text-[11px] font-bold">
+                  REHBER
+                </span>
+                <h3 className="font-brutal-display text-base sm:text-lg font-extrabold">
+                  Bu Araç Ne İçin Var ve Nasıl Çalışır?
+                </h3>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div className="space-y-1.5">
+                  <div className="font-brutal-mono text-xs font-bold uppercase text-[#111111]">
+                    1. NE İÇİN KULLANILIR?
+                  </div>
+                  <p className="text-[#333333] leading-relaxed">
+                    Markette &ldquo;Büyük Boy / Ekonomik Paket&rdquo; diye satılan ürünlerin gerçekten daha ucuza gelip
+                    gelmediğini ve gramajı küçültülerek (shrinkflasyon) yapılan gizli zamları anında görmek için
+                    kullanılır.
+                  </p>
+                </div>
+                <div className="space-y-1.5">
+                  <div className="font-brutal-mono text-xs font-bold uppercase text-[#111111]">
+                    2. NASIL HESAPLAR / ÇALIŞIR?
+                  </div>
+                  <p className="text-[#333333] leading-relaxed">
+                    İki paketin fiyatını gram/mililitre değerine bölerek <strong>1 kg veya 1 litre başına birim
+                    fiyatını</strong> hesaplar; hangisinin yüzde kaç daha kârlı olduğunu tek bakışta çıkarır.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-[#F2EFE9] border-2 border-[#111111] p-3 text-xs font-brutal-mono">
+                💡 ÖRNEK: 1000g yerine 850g’a düşen ama fiyatı aynı kalan bir üründe fark etmeden %17,6 gizli zam
+                ödersin — raf etiketindeki kg/L fiyatını mutlaka kıyasla.
+              </div>
+            </section>
           </div>
         )}
 
@@ -389,6 +462,43 @@ export default function App() {
                 {petitionText}
               </pre>
             </div>
+
+            <section className="lg:col-span-12 brutal-box bg-white p-5 space-y-4">
+              <div className="flex flex-wrap items-center gap-2.5 border-b-2 border-[#111111] pb-3">
+                <span className="-rotate-2 border-2 border-[#111111] bg-[#FFE600] px-2.5 py-0.5 font-brutal-mono text-[11px] font-bold">
+                  REHBER
+                </span>
+                <h3 className="font-brutal-display text-base sm:text-lg font-extrabold">
+                  Bu Araç Ne İçin Var ve Nasıl Çalışır?
+                </h3>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div className="space-y-1.5">
+                  <div className="font-brutal-mono text-xs font-bold uppercase text-[#111111]">
+                    1. NE İÇİN KULLANILIR?
+                  </div>
+                  <p className="text-[#333333] leading-relaxed">
+                    Ayıplı çıkan ürünlerde, satıcının siparişi keyfi iptal etmesinde, 14 günlük cayma hakkının
+                    reddedilmesinde veya izinsiz abonelik çekimlerinde hakkını ücretsiz aramak için resmi başvuru
+                    metni hazırlar.
+                  </p>
+                </div>
+                <div className="space-y-1.5">
+                  <div className="font-brutal-mono text-xs font-bold uppercase text-[#111111]">
+                    2. NASIL HESAPLAR / ÇALIŞIR?
+                  </div>
+                  <p className="text-[#333333] leading-relaxed">
+                    Girdiğin firma, ürün, tutar ve uyuşmazlık türünü <strong>6502 sayılı Tüketicinin Korunması Hakkında
+                    Kanun</strong> maddelerine uygun dilekçe şablonuna yerleştirir; verilerin yalnızca kendi cihazında
+                    kalır.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-[#F2EFE9] border-2 border-[#111111] p-3 text-xs font-brutal-mono">
+                📋 3 ADIMDA BAŞVURU: 1. Dilekçeyi Kopyala → 2. e-Devlet üzerinden &ldquo;TÜBİS Tüketici Hakem
+                Heyeti&rdquo; ekranını aç → 3. Fatura/dekont PDF&rsquo;ini yükleyip ücretsiz gönder.
+              </div>
+            </section>
           </div>
         )}
 
