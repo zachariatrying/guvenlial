@@ -1,1 +1,60 @@
 @import "tailwindcss";
+
+:root {
+  --bg-newsprint: #f2efe9;
+  --ink-black: #111111;
+  --accent-yellow: #ffe600;
+  --accent-red: #ff3b30;
+  --accent-green: #00a86b;
+  --font-display: "Syne", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-newsprint);
+  color: var(--ink-black);
+}
+
+.font-brutal-display {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+.font-brutal-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.brutal-box {
+  border: 2px solid #111111;
+  box-shadow: 4px 4px 0px #111111;
+}
+
+.brutal-btn {
+  border: 2px solid #111111;
+  box-shadow: 3px 3px 0px #111111;
+  transition: transform 100ms ease, box-shadow 100ms ease;
+}
+
+.brutal-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #111111;
+}
+
+::selection {
+  background: #ffe600;
+  color: #111111;
+}
+
+:focus-visible {
+  outline: 3px solid #111111;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -71,16 +71,9 @@ export default function App() {
     setTimeout(() => setToast(null), 2600);
   };
 
-  const categoryBenchmarks = useMemo(
-    () => MARKET_BENCHMARKS.filter((b) => b.category === category),
-    [category]
-  );
-
+  const categoryBenchmarks = useMemo(() => MARKET_BENCHMARKS.filter((b) => b.category === category), [category]);
   const activeBenchmark = useMemo(
-    () =>
-      MARKET_BENCHMARKS.find((b) => b.id === benchmarkId) ||
-      categoryBenchmarks[0] ||
-      MARKET_BENCHMARKS[0],
+    () => MARKET_BENCHMARKS.find((b) => b.id === benchmarkId) || categoryBenchmarks[0] || MARKET_BENCHMARKS[0],
     [benchmarkId, categoryBenchmarks]
   );
 
@@ -132,60 +125,51 @@ export default function App() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    ctx.fillStyle = '#047857';
+    ctx.fillStyle = '#F2EFE9';
     ctx.fillRect(0, 0, 1080, 1350);
+    ctx.fillStyle = '#111111';
+    ctx.fillRect(0, 0, 1080, 24);
 
-    ctx.fillStyle = '#F59E0B';
-    ctx.fillRect(0, 0, 1080, 18);
+    ctx.fillStyle = '#111111';
+    ctx.font = 'bold 30px monospace';
+    ctx.fillText('GÜVENLİAL // İLAN DENETİM DOSYASI', 72, 100);
 
-    ctx.fillStyle = '#D1FAE5';
-    ctx.font = 'bold 28px system-ui, sans-serif';
-    ctx.fillText('GÜVENLİAL · İKİNCİ EL İLAN RAPORU', 72, 100);
+    ctx.fillStyle = result.verdictLevel === 'danger' ? '#FF3B30' : result.verdictLevel === 'caution' ? '#FFE600' : '#00A86B';
+    ctx.fillRect(72, 140, 936, 110);
+    ctx.strokeStyle = '#111111';
+    ctx.lineWidth = 6;
+    ctx.strokeRect(72, 140, 936, 110);
+
+    ctx.fillStyle = result.verdictLevel === 'caution' ? '#111111' : '#FFFFFF';
+    ctx.font = 'bold 44px system-ui, sans-serif';
+    ctx.fillText(result.verdict.toUpperCase(), 104, 210);
 
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = 'bold 50px system-ui, sans-serif';
-    ctx.fillText(result.verdict, 72, 190);
+    ctx.fillRect(72, 290, 936, 860);
+    ctx.strokeRect(72, 290, 936, 860);
 
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(72, 260, 936, 860);
-
-    ctx.fillStyle = '#0F172A';
+    ctx.fillStyle = '#111111';
     ctx.font = 'bold 32px system-ui, sans-serif';
-    ctx.fillText(title.slice(0, 44), 112, 335);
-
-    ctx.fillStyle = '#475569';
-    ctx.font = '26px system-ui, sans-serif';
-    ctx.fillText(`İstenen Fiyat: ${askingPrice.toLocaleString('tr-TR')} ₺`, 112, 395);
-    ctx.fillText(
-      `Piyasa Bandı: ${result.fairLow.toLocaleString('tr-TR')} – ${result.fairHigh.toLocaleString('tr-TR')} ₺`,
-      112,
-      440
-    );
-    ctx.fillText(
-      `İlk Teklif: ${result.openingOffer.toLocaleString('tr-TR')} ₺  |  Üst Sınır: ${result.walkAwayPrice.toLocaleString('tr-TR')} ₺`,
-      112,
-      485
-    );
-
-    ctx.fillStyle = '#047857';
-    ctx.font = 'bold 28px system-ui, sans-serif';
-    ctx.fillText(`TESPİT EDİLEN RİSKLER (${result.redFlags.length})`, 112, 565);
+    ctx.fillText(title.slice(0, 44), 108, 355);
+    ctx.font = '24px monospace';
+    ctx.fillText(`İSTENEN: ${askingPrice.toLocaleString('tr-TR')} ₺`, 108, 415);
+    ctx.fillText(`PİYASA : ${result.fairLow.toLocaleString('tr-TR')} – ${result.fairHigh.toLocaleString('tr-TR')} ₺`, 108, 460);
 
     result.redFlags.slice(0, 4).forEach((f, i) => {
-      const y = 615 + i * 115;
-      ctx.fillStyle = f.severity === 'Yüksek' ? '#FEF2F2' : '#FFFBEB';
-      ctx.fillRect(112, y, 856, 94);
-      ctx.fillStyle = f.severity === 'Yüksek' ? '#B91C1C' : '#B45309';
+      const y = 540 + i * 135;
+      ctx.fillStyle = '#F2EFE9';
+      ctx.fillRect(108, y, 864, 112);
+      ctx.strokeRect(108, y, 864, 112);
+      ctx.fillStyle = '#111111';
       ctx.font = 'bold 24px system-ui, sans-serif';
-      ctx.fillText(`[${f.severity}] ${f.title}`, 140, y + 38);
-      ctx.fillStyle = '#334155';
+      ctx.fillText(`[${f.severity}] ${f.title}`, 132, y + 42);
       ctx.font = '20px system-ui, sans-serif';
-      ctx.fillText(f.advice.slice(0, 68), 140, y + 74);
+      ctx.fillText(f.advice.slice(0, 64), 132, y + 84);
     });
 
-    ctx.fillStyle = '#A7F3D0';
-    ctx.font = '24px system-ui, sans-serif';
-    ctx.fillText('zachariatrying.github.io/guvenlial · %100 Cihaz İçi', 72, 1245);
+    ctx.fillStyle = '#111111';
+    ctx.font = 'bold 24px monospace';
+    ctx.fillText('zachariatrying.github.io/guvenlial', 72, 1255);
 
     const a = document.createElement('a');
     a.href = canvas.toDataURL('image/png');
@@ -199,7 +183,7 @@ export default function App() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `guvenlial-yedek.json`;
+    a.download = 'guvenlial-yedek.json';
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -216,9 +200,7 @@ export default function App() {
           setKvkkOpen(false);
           showToast('Geçmiş içe aktarıldı.');
         }
-      } catch {
-        showToast('Geçersiz JSON.');
-      }
+      } catch {}
     };
     r.readAsText(file);
   };
@@ -235,104 +217,130 @@ export default function App() {
     showToast('Tüm yerel kayıtlar silindi.');
   };
 
+  // Price spectrum position (0..100)
+  const spectrumMin = Math.min(result.openingOffer, askingPrice) * 0.85;
+  const spectrumMax = Math.max(result.walkAwayPrice, askingPrice) * 1.1;
+  const toPct = (val: number) =>
+    Math.max(4, Math.min(96, ((val - spectrumMin) / Math.max(1, spectrumMax - spectrumMin)) * 100));
+
   return (
-    <div className="min-h-screen bg-[#F4F7F5] text-[#0F172A] pb-24">
-      <header className="sticky top-0 z-30 bg-[#047857] text-white shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-3.5 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <img
-              src="./store-assets/guvenlial_icon.png"
-              alt="GüvenliAl"
-              className="w-10 h-10 rounded-xl border border-white/20"
-            />
-            <div>
-              <h1 className="text-lg font-extrabold tracking-tight leading-tight">GüvenliAl</h1>
-              <p className="text-xs text-emerald-100">İkinci El İlan &amp; Dolandırıcılık Kalkanı</p>
-            </div>
+    <div className="min-h-screen bg-[#F2EFE9] text-[#111111] pb-20">
+      {/* Black Ticker Strip + Newsprint Masthead */}
+      <div className="bg-[#111111] text-[#FFE600] py-1.5 px-4 font-brutal-mono text-[11px] flex items-center justify-between">
+        <span>GÜVENLİAL // 2. EL İLAN DENETİM MASASI</span>
+        <span>%100 CİHAZ İÇİ · SIFIR İZLEME</span>
+      </div>
+
+      <header className="mx-auto max-w-5xl px-4 py-5 border-b-2 border-[#111111] flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <img
+            src={`${import.meta.env.BASE_URL}store-assets/guvenlial_icon.png`}
+            alt="GüvenliAl"
+            className="w-11 h-11 border-2 border-[#111111] object-cover"
+          />
+          <div>
+            <h1 className="font-brutal-display text-2xl sm:text-3xl font-extrabold tracking-tight leading-none">
+              GüvenliAl
+            </h1>
+            <p className="font-brutal-mono text-xs text-[#444444] mt-1">
+              Kapora Tuzağı, Fiyat Anomalisi &amp; Elden Teslim Kalkanı
+            </p>
           </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={downloadSummaryPng}
-              className="px-3 py-1.5 rounded-lg bg-amber-400 text-slate-950 text-xs font-bold flex items-center gap-1.5 hover:bg-amber-300 cursor-pointer"
-            >
-              <Download className="w-3.5 h-3.5" /> Rapor PNG
-            </button>
-            <button
-              onClick={() => {
-                setDeleteStep(0);
-                setKvkkOpen(true);
-              }}
-              className="p-2 rounded-lg bg-white/10 hover:bg-white/20 cursor-pointer"
-              title="KVKK & Veri Kontrolü"
-            >
-              <Shield className="w-4 h-4" />
-            </button>
-          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={downloadSummaryPng}
+            className="brutal-btn bg-[#FFE600] text-[#111111] px-3.5 py-2 text-xs font-bold font-brutal-mono flex items-center gap-1.5 cursor-pointer"
+          >
+            <Download className="w-3.5 h-3.5" /> RAPOR PNG
+          </button>
+          <button
+            onClick={() => {
+              setDeleteStep(0);
+              setKvkkOpen(true);
+            }}
+            className="brutal-btn bg-white text-[#111111] p-2 cursor-pointer"
+            title="KVKK & Veri Kontrolü"
+          >
+            <Shield className="w-4 h-4" />
+          </button>
         </div>
       </header>
 
       {toast && (
-        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-full text-sm font-medium shadow-lg">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 brutal-box bg-[#FFE600] text-[#111111] px-4 py-2 text-xs font-bold font-brutal-mono">
           {toast}
         </div>
       )}
 
-      <main className="max-w-4xl mx-auto px-4 py-5 space-y-5">
-        {/* Preset Bar */}
-        <section className="flex flex-wrap gap-2 items-center">
-          <span className="text-xs font-bold text-slate-500 uppercase">Hızlı Test İlanları:</span>
-          {DEMO_LISTINGS.map((d) => (
-            <button
-              key={d.id}
-              onClick={() => applyPreset(d.id)}
-              className="px-3 py-1.5 rounded-full bg-white border border-emerald-200 text-xs font-semibold text-emerald-900 hover:bg-emerald-50 cursor-pointer"
-            >
-              {d.label}
-            </button>
-          ))}
+      <main className="mx-auto max-w-5xl px-4 py-6 space-y-6">
+        {/* File-Folder Tabs for Presets */}
+        <section className="space-y-2">
+          <div className="font-brutal-mono text-[11px] font-bold uppercase">Hazır İlan Dosyaları:</div>
+          <div className="flex flex-wrap gap-2">
+            {DEMO_LISTINGS.map((d) => (
+              <button
+                key={d.id}
+                onClick={() => applyPreset(d.id)}
+                className="brutal-btn bg-white px-3 py-1.5 text-xs font-bold hover:bg-[#FFE600] cursor-pointer"
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
         </section>
 
-        {/* Verdict Banner */}
+        {/* Verdict + Rotated Rubber Stamp */}
         <section
-          className={`rounded-2xl p-5 border-2 shadow-xs ${
+          className={`brutal-box p-5 flex flex-wrap items-center justify-between gap-4 ${
             result.verdictLevel === 'danger'
-              ? 'bg-rose-50 border-rose-400 text-rose-950'
+              ? 'bg-[#FFE5E5]'
               : result.verdictLevel === 'caution'
-              ? 'bg-amber-50 border-amber-400 text-amber-950'
-              : 'bg-emerald-50 border-emerald-400 text-emerald-950'
+              ? 'bg-[#FFF9CC]'
+              : 'bg-[#E2F8EE]'
           }`}
         >
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              {result.verdictLevel === 'danger' ? (
-                <ShieldAlert className="w-9 h-9 text-rose-600 shrink-0" />
-              ) : result.verdictLevel === 'caution' ? (
-                <AlertTriangle className="w-9 h-9 text-amber-600 shrink-0" />
-              ) : (
-                <ShieldCheck className="w-9 h-9 text-emerald-700 shrink-0" />
-              )}
-              <div>
-                <div className="text-xs font-bold uppercase tracking-wider opacity-75">
-                  İlan Güvenlik Kararı
-                </div>
-                <h2 className="text-xl font-extrabold">{result.verdict}</h2>
-                <p className="text-xs sm:text-sm mt-0.5">{result.primaryReason}</p>
-              </div>
+          <div className="flex items-center gap-3.5">
+            {result.verdictLevel === 'danger' ? (
+              <ShieldAlert className="w-9 h-9 text-[#FF3B30] shrink-0" />
+            ) : result.verdictLevel === 'caution' ? (
+              <AlertTriangle className="w-9 h-9 text-[#B45309] shrink-0" />
+            ) : (
+              <ShieldCheck className="w-9 h-9 text-[#00A86B] shrink-0" />
+            )}
+            <div>
+              <h2 className="font-brutal-display text-xl sm:text-2xl font-extrabold">{result.verdict}</h2>
+              <p className="text-xs sm:text-sm font-medium mt-0.5">{result.primaryReason}</p>
             </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span
+              className={`inline-block -rotate-2 border-2 px-3 py-1 font-brutal-mono text-xs font-bold uppercase ${
+                result.verdictLevel === 'danger'
+                  ? 'border-[#FF3B30] text-[#FF3B30] bg-white'
+                  : result.verdictLevel === 'caution'
+                  ? 'border-[#111111] text-[#111111] bg-[#FFE600]'
+                  : 'border-[#00A86B] text-[#00A86B] bg-white'
+              }`}
+            >
+              {result.redFlags.length} BAYRAK
+            </span>
             <button
               onClick={saveCurrentAudit}
-              className="px-3.5 py-2 rounded-xl bg-white/90 border border-black/10 text-xs font-bold text-slate-900 hover:bg-white cursor-pointer"
+              className="brutal-btn bg-white px-3 py-1.5 text-xs font-bold font-brutal-mono cursor-pointer"
             >
-              Geçmişe Kaydet
+              DOSYAYA KAYDET
             </button>
           </div>
         </section>
 
-        {/* Tabs */}
-        <nav className="grid grid-cols-3 gap-1.5 bg-emerald-100/70 p-1 rounded-xl">
+        {/* Sharp Square Navigation */}
+        <nav className="grid grid-cols-3 border-2 border-[#111111] bg-white divide-x-2 divide-[#111111]">
           {[
-            { id: 'audit', label: 'İlan & Bayraklar', icon: ShieldAlert },
-            { id: 'negotiate', label: 'Pazarlık & Sorular', icon: Scale },
+            { id: 'audit', label: 'İlan Küpürü & Bayraklar', icon: ShieldAlert },
+            { id: 'negotiate', label: 'Fiyat Cetveli & Sorular', icon: Scale },
             { id: 'checklist', label: 'Elden Teslim Testi', icon: ClipboardList },
           ].map((t) => {
             const Icon = t.icon;
@@ -341,8 +349,8 @@ export default function App() {
               <button
                 key={t.id}
                 onClick={() => setTab(t.id as Tab)}
-                className={`py-2 px-2 rounded-lg text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 cursor-pointer ${
-                  active ? 'bg-white text-emerald-950 shadow-xs' : 'text-slate-600 hover:text-emerald-900'
+                className={`py-2.5 px-2 text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 cursor-pointer ${
+                  active ? 'bg-[#111111] text-[#FFE600]' : 'bg-white text-[#111111] hover:bg-[#F2EFE9]'
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -352,14 +360,16 @@ export default function App() {
           })}
         </nav>
 
-        {/* TAB 1: AUDIT */}
         {tab === 'audit' && (
-          <div className="grid lg:grid-cols-2 gap-5">
-            <div className="bg-white rounded-2xl p-4 border border-slate-200 space-y-3.5 shadow-xs">
-              <h3 className="text-sm font-extrabold">İlan Bilgilerini Gir veya Yapıştır</h3>
+          <div className="grid lg:grid-cols-2 gap-6">
+            {/* Left: Classified Clipping */}
+            <div className="brutal-box bg-white p-5 space-y-3.5">
+              <h3 className="font-brutal-display text-base font-extrabold border-b-2 border-[#111111] pb-2">
+                İlan Küpürü
+              </h3>
               <div className="grid grid-cols-2 gap-2.5">
                 <div>
-                  <label className="text-xs font-bold text-slate-600">Kategori</label>
+                  <label className="font-brutal-mono text-[11px] font-bold">KATEGORİ</label>
                   <select
                     value={category}
                     onChange={(e) => {
@@ -368,114 +378,107 @@ export default function App() {
                       const first = MARKET_BENCHMARKS.find((b) => b.category === nextCat);
                       if (first) setBenchmarkId(first.id);
                     }}
-                    className="w-full mt-1 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold"
+                    className="w-full mt-1 border-2 border-[#111111] bg-[#F2EFE9] px-2.5 py-2 text-xs font-bold"
                   >
                     {(Object.keys(CATEGORY_LABELS) as ListingCategory[]).map((k) => (
-                      <option key={k} value={k}>
-                        {CATEGORY_LABELS[k]}
-                      </option>
+                      <option key={k} value={k}>{CATEGORY_LABELS[k]}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-slate-600">Referans Model</label>
+                  <label className="font-brutal-mono text-[11px] font-bold">REFERANS MODEL</label>
                   <select
                     value={activeBenchmark.id}
                     onChange={(e) => setBenchmarkId(e.target.value)}
-                    className="w-full mt-1 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold"
+                    className="w-full mt-1 border-2 border-[#111111] bg-[#F2EFE9] px-2.5 py-2 text-xs font-bold"
                   >
                     {categoryBenchmarks.map((b) => (
-                      <option key={b.id} value={b.id}>
-                        {b.name}
-                      </option>
+                      <option key={b.id} value={b.id}>{b.name}</option>
                     ))}
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-600">İlan Başlığı</label>
+                <label className="font-brutal-mono text-[11px] font-bold">İLAN BAŞLIĞI</label>
                 <input
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full mt-1 border border-slate-300 rounded-xl px-3 py-2 text-sm"
+                  className="w-full mt-1 border-2 border-[#111111] bg-white px-3 py-2 text-sm font-medium"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-600">İlan Açıklaması</label>
+                <label className="font-brutal-mono text-[11px] font-bold">İLAN METNİ</label>
                 <textarea
                   rows={4}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full mt-1 border border-slate-300 rounded-xl px-3 py-2 text-sm"
+                  className="w-full mt-1 border-2 border-[#111111] bg-white px-3 py-2 text-sm"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-600">İstenen Fiyat (₺)</label>
+                <label className="font-brutal-mono text-[11px] font-bold">İSTENEN FİYAT (₺)</label>
                 <input
                   type="number"
                   value={askingPrice}
                   onChange={(e) => setAskingPrice(Number(e.target.value) || 0)}
-                  className="w-full mt-1 border border-slate-300 rounded-xl px-3 py-2 text-sm font-bold"
+                  className="w-full mt-1 border-2 border-[#111111] bg-[#FFE600]/30 px-3 py-2 text-base font-bold font-brutal-mono"
                 />
               </div>
 
-              <div className="flex flex-wrap gap-2 pt-1">
-                <label className="flex items-center gap-1.5 text-xs font-semibold bg-slate-50 px-3 py-2 rounded-xl border cursor-pointer">
+              <div className="flex flex-wrap gap-2 pt-1 text-xs font-bold">
+                <label className="flex items-center gap-1.5 border-2 border-[#111111] px-3 py-1.5 bg-[#F2EFE9] cursor-pointer">
                   <input type="checkbox" checked={hasInvoice} onChange={(e) => setHasInvoice(e.target.checked)} />
-                  Fatura / Kutu Var
+                  Fatura / Kutu
                 </label>
-                <label className="flex items-center gap-1.5 text-xs font-semibold bg-slate-50 px-3 py-2 rounded-xl border cursor-pointer">
+                <label className="flex items-center gap-1.5 border-2 border-[#111111] px-3 py-1.5 bg-[#F2EFE9] cursor-pointer">
                   <input type="checkbox" checked={acceptsEscrow} onChange={(e) => setAcceptsEscrow(e.target.checked)} />
-                  Param Güvende Açık
+                  Param Güvende
                 </label>
-                <label className="flex items-center gap-1.5 text-xs font-semibold bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 cursor-pointer">
+                <label className="flex items-center gap-1.5 border-2 border-[#FF3B30] px-3 py-1.5 bg-[#FFE5E5] cursor-pointer">
                   <input type="checkbox" checked={asksDeposit} onChange={(e) => setAsksDeposit(e.target.checked)} />
                   Kapora İstiyor
                 </label>
               </div>
             </div>
 
-            <div className="space-y-3">
-              <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs">
-                <h3 className="text-sm font-extrabold mb-2">
-                  Tespit Edilen Kırmızı Bayraklar ({result.redFlags.length})
+            {/* Right: Red Flags & Deal-Breakers */}
+            <div className="space-y-5">
+              <div className="brutal-box bg-white p-5 space-y-3">
+                <h3 className="font-brutal-display text-base font-extrabold border-b-2 border-[#111111] pb-2">
+                  Kırmızı Bayraklar ({result.redFlags.length})
                 </h3>
                 {result.redFlags.length === 0 ? (
-                  <p className="text-xs text-emerald-700 font-medium flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4" /> Metinde belirgin dolandırıcılık ifadesi bulunamadı.
+                  <p className="text-xs font-bold text-[#00A86B] flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4" /> Metinde belirgin dolandırıcılık kalıbı yok.
                   </p>
                 ) : (
                   <div className="space-y-2.5">
                     {result.redFlags.map((f, idx) => (
                       <div
                         key={idx}
-                        className={`p-3 rounded-xl border text-xs ${
-                          f.severity === 'Yüksek'
-                            ? 'bg-rose-50 border-rose-200'
-                            : f.severity === 'Orta'
-                            ? 'bg-amber-50 border-amber-200'
-                            : 'bg-slate-50 border-slate-200'
+                        className={`p-3 border-2 border-[#111111] text-xs ${
+                          f.severity === 'Yüksek' ? 'bg-[#FFE5E5]' : f.severity === 'Orta' ? 'bg-[#FFF9CC]' : 'bg-[#F2EFE9]'
                         }`}
                       >
                         <div className="flex items-center justify-between font-bold">
                           <span>{f.title}</span>
-                          <span className="px-2 py-0.5 rounded bg-white/80 text-[10px]">{f.severity}</span>
+                          <span className="font-brutal-mono px-1.5 py-0.5 bg-[#111111] text-white text-[10px]">{f.severity}</span>
                         </div>
-                        <div className="text-slate-600 mt-1 italic">"{f.quote}"</div>
-                        <div className="text-slate-800 mt-1 font-medium">{f.advice}</div>
+                        <div className="mt-1 italic text-[#333333]">"{f.quote}"</div>
+                        <div className="mt-1 font-semibold">{f.advice}</div>
                       </div>
                     ))}
                   </div>
                 )}
               </div>
 
-              <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs">
-                <h3 className="text-sm font-extrabold mb-2">Satın Almaktan Vazgeçme Kriterleri (Deal-Breakers)</h3>
-                <ul className="space-y-1.5 text-xs text-slate-700 list-disc pl-4">
+              <div className="brutal-box bg-white p-5">
+                <h3 className="font-brutal-display text-sm font-extrabold mb-2">Vazgeçme Kriterleri (Deal-Breakers)</h3>
+                <ul className="space-y-1.5 text-xs list-disc pl-4 font-medium">
                   {activeBenchmark.dealBreakers.map((db, i) => (
                     <li key={i}>{db}</li>
                   ))}
@@ -485,48 +488,62 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: NEGOTIATE & QUESTIONS */}
         {tab === 'negotiate' && (
-          <div className="space-y-4">
-            <div className="grid sm:grid-cols-3 gap-3">
-              <div className="bg-white rounded-2xl p-4 border border-slate-200">
-                <div className="text-xs font-bold text-slate-500">Gerçekçi Piyasa Bandı</div>
-                <div className="text-lg font-extrabold text-slate-900 mt-1">
-                  {result.fairLow.toLocaleString('tr-TR')} – {result.fairHigh.toLocaleString('tr-TR')} ₺
-                </div>
+          <div className="space-y-5">
+            {/* Visual Price Spectrum Ruler */}
+            <div className="brutal-box bg-white p-5 space-y-4">
+              <h3 className="font-brutal-display text-base font-extrabold">Fiyat Konumlandırma Cetveli</h3>
+              <div className="relative h-8 bg-[#F2EFE9] border-2 border-[#111111]">
+                {/* Fair band */}
+                <div
+                  className="absolute top-0 bottom-0 bg-[#00A86B]/25 border-x-2 border-[#00A86B]"
+                  style={{
+                    left: `${toPct(result.fairLow)}%`,
+                    width: `${Math.max(4, toPct(result.fairHigh) - toPct(result.fairLow))}%`,
+                  }}
+                />
+                {/* Asking price marker */}
+                <div
+                  className="absolute -top-1.5 -bottom-1.5 w-2 bg-[#FF3B30] border border-[#111111]"
+                  style={{ left: `${toPct(askingPrice)}%` }}
+                  title={`İlan Fiyatı: ${askingPrice.toLocaleString('tr-TR')} ₺`}
+                />
               </div>
-              <div className="bg-white rounded-2xl p-4 border border-emerald-200">
-                <div className="text-xs font-bold text-emerald-700">Agresif İlk Pazarlık Teklifin</div>
-                <div className="text-lg font-extrabold text-emerald-900 mt-1">
-                  {result.openingOffer.toLocaleString('tr-TR')} ₺
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-brutal-mono text-xs">
+                <div className="border-2 border-[#111111] p-3 bg-[#E2F8EE]">
+                  <div className="text-[10px] font-bold">İLK TEKLİFİN</div>
+                  <div className="text-base font-bold mt-1">{result.openingOffer.toLocaleString('tr-TR')} ₺</div>
                 </div>
-              </div>
-              <div className="bg-white rounded-2xl p-4 border border-rose-200">
-                <div className="text-xs font-bold text-rose-700">Masadan Kalkma Üst Sınırı</div>
-                <div className="text-lg font-extrabold text-rose-900 mt-1">
-                  {result.walkAwayPrice.toLocaleString('tr-TR')} ₺
+                <div className="border-2 border-[#111111] p-3 bg-[#F2EFE9]">
+                  <div className="text-[10px] font-bold">PİYASA BANDI</div>
+                  <div className="text-sm font-bold mt-1">{result.fairLow.toLocaleString('tr-TR')}–{result.fairHigh.toLocaleString('tr-TR')} ₺</div>
+                </div>
+                <div className="border-2 border-[#111111] p-3 bg-[#FFF9CC]">
+                  <div className="text-[10px] font-bold">İLAN FİYATI</div>
+                  <div className="text-base font-bold mt-1">{askingPrice.toLocaleString('tr-TR')} ₺</div>
+                </div>
+                <div className="border-2 border-[#111111] p-3 bg-[#FFE5E5]">
+                  <div className="text-[10px] font-bold">ÜST SINIR (KALK)</div>
+                  <div className="text-base font-bold mt-1">{result.walkAwayPrice.toLocaleString('tr-TR')} ₺</div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-4 border border-slate-200 space-y-2.5">
-              <h3 className="text-sm font-extrabold">Satıcıya Kopyala-Yapıştır Doğrulama Soruları</h3>
+            <div className="brutal-box bg-white p-5 space-y-2.5">
+              <h3 className="font-brutal-display text-base font-extrabold">Satıcıya Sorulacak Sorular</h3>
               {activeBenchmark.sellerQuestions.map((q, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center justify-between gap-3 bg-slate-50 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm"
-                >
-                  <span>{q}</span>
+                <div key={idx} className="flex items-center justify-between gap-3 border-2 border-[#111111] bg-[#F2EFE9] px-3.5 py-2.5 text-xs sm:text-sm">
+                  <span className="font-medium">{q}</span>
                   <button
                     onClick={() => {
                       navigator.clipboard?.writeText(q);
                       setCopiedIdx(idx);
                       setTimeout(() => setCopiedIdx(null), 1500);
                     }}
-                    className="px-2.5 py-1 rounded-lg bg-emerald-700 text-white text-xs font-bold shrink-0 flex items-center gap-1 cursor-pointer"
+                    className="brutal-btn bg-[#FFE600] px-2.5 py-1 text-xs font-bold font-brutal-mono shrink-0 flex items-center gap-1 cursor-pointer"
                   >
                     {copiedIdx === idx ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                    {copiedIdx === idx ? 'Kopyalandı' : 'Kopyala'}
+                    {copiedIdx === idx ? 'TAMAM' : 'KOPYALA'}
                   </button>
                 </div>
               ))}
@@ -534,12 +551,11 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 3: CHECKLIST */}
         {tab === 'checklist' && (
-          <div className="space-y-4">
-            <div className="bg-white rounded-2xl p-4 border border-slate-200 space-y-3">
-              <h3 className="text-sm font-extrabold flex items-center gap-2">
-                <FileCheck2 className="w-4 h-4 text-emerald-700" /> Elden Teslimde Fiziksel Kontrol Listesi ({activeBenchmark.name})
+          <div className="space-y-5">
+            <div className="brutal-box bg-white p-5 space-y-3">
+              <h3 className="font-brutal-display text-base font-extrabold flex items-center gap-2">
+                <FileCheck2 className="w-4 h-4" /> Elden Teslim Kontrol Listesi ({activeBenchmark.name})
               </h3>
               {activeBenchmark.inspectionChecks.map((chk, idx) => {
                 const key = `${activeBenchmark.id}-${idx}`;
@@ -547,8 +563,8 @@ export default function App() {
                 return (
                   <label
                     key={key}
-                    className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition ${
-                      done ? 'bg-emerald-50 border-emerald-300' : 'bg-slate-50 border-slate-200'
+                    className={`flex items-start gap-3 p-3 border-2 border-[#111111] cursor-pointer ${
+                      done ? 'bg-[#E2F8EE]' : 'bg-[#F2EFE9]'
                     }`}
                   >
                     <input
@@ -557,74 +573,57 @@ export default function App() {
                       onChange={(e) => setCheckedSteps((prev) => ({ ...prev, [key]: e.target.checked }))}
                       className="mt-1"
                     />
-                    <span className={`text-xs sm:text-sm ${done ? 'line-through text-slate-500' : 'text-slate-800'}`}>
-                      {chk}
-                    </span>
+                    <span className={`text-xs sm:text-sm font-medium ${done ? 'line-through opacity-60' : ''}`}>{chk}</span>
                   </label>
                 );
               })}
             </div>
 
             {savedAudits.length > 0 && (
-              <div className="bg-white rounded-2xl p-4 border border-slate-200">
-                <h3 className="text-sm font-extrabold mb-2">Kayıtlı İlan Denetimleri ({savedAudits.length})</h3>
-                <div className="space-y-2">
-                  {savedAudits.map((s) => (
-                    <div key={s.id} className="flex items-center justify-between text-xs bg-slate-50 px-3 py-2 rounded-xl">
-                      <div>
-                        <div className="font-bold">{s.title}</div>
-                        <div className="text-slate-500">{s.date} · {s.askingPrice.toLocaleString('tr-TR')} ₺</div>
-                      </div>
-                      <span className="font-bold px-2.5 py-1 rounded-full bg-white border">{s.verdict}</span>
+              <div className="brutal-box bg-white p-5 space-y-2">
+                <h3 className="font-brutal-display text-sm font-extrabold">Kayıtlı İlanlar ({savedAudits.length})</h3>
+                {savedAudits.map((s) => (
+                  <div key={s.id} className="flex items-center justify-between text-xs border-2 border-[#111111] bg-[#F2EFE9] px-3 py-2">
+                    <div>
+                      <div className="font-bold">{s.title}</div>
+                      <div className="font-brutal-mono text-[11px]">{s.date} · {s.askingPrice.toLocaleString('tr-TR')} ₺</div>
                     </div>
-                  ))}
-                </div>
+                    <span className="font-brutal-mono font-bold px-2 py-1 bg-white border border-[#111111]">{s.verdict}</span>
+                  </div>
+                ))}
               </div>
             )}
           </div>
         )}
 
-        <footer className="bg-white/80 border border-slate-200 rounded-2xl p-4 text-xs text-slate-600 flex items-start gap-2.5">
-          <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-          <p>
-            <strong>Bilgilendirme:</strong> GüvenliAl piyasa fiyat bantları tahmini referans niteliğindedir; resmî ekspertiz veya hukuki garanti yerine geçmez. Ödemelerde daima platform güvenli ödeme veya noter/banka güvencesini tercih edin.
-          </p>
+        <footer className="border-t-2 border-[#111111] pt-4 text-xs text-[#444444]">
+          GüvenliAl piyasa bantları referans niteliğindedir; resmî ekspertiz yerine geçmez.
         </footer>
       </main>
 
       {kvkkOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/60 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-5 space-y-4 shadow-xl">
-            <div className="flex items-center justify-between">
-              <h3 className="text-base font-extrabold flex items-center gap-2">
-                <Shield className="w-5 h-5 text-emerald-700" /> KVKK &amp; Veri Kontrolü
-              </h3>
-              <button onClick={() => setKvkkOpen(false)} className="p-1 text-slate-500 cursor-pointer">
-                <X className="w-5 h-5" />
-              </button>
+        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+          <div className="brutal-box bg-white max-w-md w-full p-5 space-y-4">
+            <div className="flex items-center justify-between border-b-2 border-[#111111] pb-2">
+              <h3 className="font-brutal-display text-base font-extrabold">KVKK &amp; Veri Kontrolü</h3>
+              <button onClick={() => setKvkkOpen(false)} className="p-1 cursor-pointer"><X className="w-5 h-5" /></button>
             </div>
-            <p className="text-xs text-slate-600">
-              Hesap gerekmez. Denetim geçmişiniz yalnızca kendi cihazınızda saklanır.
-            </p>
-            <div className="space-y-2">
-              <button
-                onClick={exportJson}
-                className="w-full py-2.5 px-4 rounded-xl bg-emerald-50 text-emerald-900 font-bold text-xs flex items-center justify-center gap-2 border border-emerald-200 cursor-pointer"
-              >
+            <div className="space-y-2.5">
+              <button onClick={exportJson} className="brutal-btn w-full py-2.5 px-4 bg-[#F2EFE9] font-bold text-xs flex items-center justify-center gap-2 cursor-pointer">
                 <Download className="w-4 h-4" /> JSON Yedeğini İndir ({savedAudits.length})
               </button>
-              <label className="w-full py-2.5 px-4 rounded-xl bg-slate-50 text-slate-800 font-bold text-xs flex items-center justify-center gap-2 border border-slate-200 cursor-pointer">
+              <label className="brutal-btn w-full py-2.5 px-4 bg-white font-bold text-xs flex items-center justify-center gap-2 cursor-pointer">
                 <Upload className="w-4 h-4" /> JSON Yedeğinden Geri Yükle
                 <input type="file" accept="application/json" className="hidden" onChange={importJson} />
               </label>
               <button
                 onClick={wipeAll}
-                className={`w-full py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 cursor-pointer ${
-                  deleteStep === 1 ? 'bg-rose-600 text-white' : 'bg-rose-50 text-rose-700 border border-rose-200'
+                className={`brutal-btn w-full py-2.5 px-4 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer ${
+                  deleteStep === 1 ? 'bg-[#FF3B30] text-white' : 'bg-[#FFE5E5] text-[#111111]'
                 }`}
               >
                 <Trash2 className="w-4 h-4" />
-                {deleteStep === 1 ? 'Emin misin? Kalıcı Olarak Sil' : 'Tüm Verilerimi Kalıcı Sil'}
+                {deleteStep === 1 ? 'EMİN MİSİN? KALICI SİL' : 'Tüm Verilerimi Kalıcı Sil'}
               </button>
             </div>
           </div>
