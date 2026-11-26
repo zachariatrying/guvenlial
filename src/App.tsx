@@ -315,6 +315,10 @@ export default function App() {
                 💡 İPUCU: Kredi kartı hesap kesim tarihinden 1 gün sonra taksitli alışveriş yapmak ilk ödemeyi ~40 gün
                 öteler ve nakit avantajını daha da büyütür.
               </div>
+              <div className="text-[11px] text-[#444444]">
+                <strong>SPK Uyarısı:</strong> Bu simülasyon yatırım danışmanlığı kapsamında değildir; girdiğiniz
+                varsayımsal getiri oranıyla matematiksel bugünkü değer hesabı yapar.
+              </div>
             </section>
           </div>
         )}
@@ -498,12 +502,21 @@ export default function App() {
                 📋 3 ADIMDA BAŞVURU: 1. Dilekçeyi Kopyala → 2. e-Devlet üzerinden &ldquo;TÜBİS Tüketici Hakem
                 Heyeti&rdquo; ekranını aç → 3. Fatura/dekont PDF&rsquo;ini yükleyip ücretsiz gönder.
               </div>
+              <div className="text-[11px] text-[#444444]">
+                <strong>Yasal Uyarı (1136 Sayılı Avukatlık Kanunu m. 35):</strong> Bu metin ücretsiz, standart
+                bilgilendirme taslağıdır; avukatlık veya hukuki danışmanlık hizmeti değildir. Uyuşmazlık tutarı Ticaret
+                Bakanlığı&rsquo;nın güncel Tüketici Hakem Heyeti parasal sınırını aşıyorsa Tüketici Mahkemesi /
+                arabuluculuk yolu geçerlidir.
+              </div>
             </section>
           </div>
         )}
 
-        <footer className="border-t-2 border-[#111111] pt-4 text-xs text-[#444444]">
-          GüvenliAl hesaplamaları ve dilekçe taslağı bilgilendirme amaçlıdır; tüm veriler yalnızca cihazınızda kalır.
+        <footer className="border-t-2 border-[#111111] pt-4 text-xs text-[#444444] flex flex-wrap items-center justify-between gap-2">
+          <span>GüvenliAl hesaplamaları ve dilekçe taslağı bilgilendirme amaçlıdır; tüm veriler yalnızca cihazınızda kalır.</span>
+          <a href="./privacy.html" className="underline font-bold text-[#111111]">
+            Gizlilik &amp; KVKK Politikası
+          </a>
         </footer>
       </main>
     </div>
