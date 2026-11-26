@@ -1,6 +1,6 @@
-# GüvenliAl — İkinci El İlan & Dolandırıcılık Kalkanı
+# GüvenliAl — Taksit vs Peşin, Market Gramaj & Tüketici Hakları Kalkanı
 
 **Canlı Web:** https://zachariatrying.github.io/guvenlial/  
 **Paket Kimliği:** `com.guvenlial.app`
 
-Sahibinden, Letgo ve Dolap ilanlarındaki kapora/sahte link tuzaklarını yakalayan, gerçekçi Türkiye piyasa bandını hesaplayan ve elden teslim kontrol listesi sunan %100 cihaz içi B2C uygulama.
+Günlük alışverişte taksit mi peşin mi daha kârlı olduğunu mevduat/para piyasası getirisiyle hesaplayan, marketlerdeki gizli gramaj küçültme (shrinkflasyon) tuzaklarını yakalayan ve 1 tıkla 6502 sayılı TKHK uyumlu Tüketici Hakem Heyeti dilekçesi üreten B2C tüketici aracı.
