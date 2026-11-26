@@ -1,0 +1,16 @@
+{
+  "name": "GüvenliAl — İkinci El İlan Kalkanı",
+  "short_name": "GüvenliAl",
+  "description": "İkinci el ilanlarda kırmızı bayrak, gerçekçi piyasa fiyatı ve elden teslim kontrol listesi.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#F4F7F5",
+  "theme_color": "#047857",
+  "icons": [
+    {
+      "src": "store-assets/guvenlial_icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
+}
