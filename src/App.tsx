@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { GuideWidget } from './components/GuideWidget';
 import {
   Calculator,
   Check,
@@ -519,6 +520,8 @@ export default function App() {
           </a>
         </footer>
       </main>
+
+      <GuideWidget />
     </div>
   );
 }
